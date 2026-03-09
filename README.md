@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Risk Profile — Small Business Risk Assessment Dashboard
 
-## Getting Started
+A clean, modern web application that helps small businesses quickly generate a strong, credible risk profile. Answer a short set of guided questions, receive a risk score, category breakdown, and actionable recommendations.
 
-First, run the development server:
+## Tech Stack
+
+- **Frontend**: Next.js 16, TypeScript, Tailwind CSS, shadcn/ui, Recharts
+- **Backend**: Next.js API routes, Prisma
+- **Database**: PostgreSQL (Supabase recommended for production)
+- **Auth**: NextAuth.js with credentials provider
+- **PDF**: @react-pdf/renderer for report generation
+
+## Local Setup
+
+### Prerequisites
+
+- Node.js 20+
+- PostgreSQL (or Supabase account)
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/myleshumphrey/riskybusiness.git
+cd riskybusiness
+npm install
+```
+
+### 2. Environment variables
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set:
+
+- `DATABASE_URL` — PostgreSQL connection string (e.g. from Supabase)
+- `NEXTAUTH_SECRET` — Generate with `openssl rand -base64 32`
+- `NEXTAUTH_URL` — `http://localhost:3000` for local dev
+
+### 3. Database
+
+```bash
+npx prisma migrate dev
+npm run db:seed
+```
+
+Or with `db push` (no migration files):
+
+```bash
+npx prisma db push
+npm run db:seed
+```
+
+### 4. Run the app
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Demo login
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Email**: demo@example.com
+- **Password**: demo1234
+- **Admin**: Same credentials — visit `/admin`
 
-## Learn More
+## Netlify Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Push to GitHub
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ensure your repo is pushed to GitHub.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Connect on Netlify
 
-## Deploy on Vercel
+1. Log in to [Netlify](https://netlify.com)
+2. Add new site → Import from Git
+3. Connect your GitHub repo (`riskybusiness`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Build settings
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Netlify auto-detects Next.js. Default settings:
+
+- **Build command**: `npm run build`
+- **Publish directory**: (handled by Next.js adapter)
+
+### 4. Environment variables
+
+In Netlify: Site settings → Environment variables. Add:
+
+| Variable | Value | Notes |
+|----------|-------|-------|
+| `DATABASE_URL` | `postgresql://...` | Supabase connection string (use direct connection, not pooler for Prisma) |
+| `NEXTAUTH_SECRET` | (generate) | `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | `https://your-site.netlify.app` | Your Netlify URL |
+| `NEXT_PUBLIC_APP_URL` | `https://your-site.netlify.app` | Same as above |
+
+### 5. Database migrations
+
+For first deploy, run migrations against your production DB:
+
+```bash
+DATABASE_URL="your-production-url" npx prisma migrate deploy
+```
+
+Or use Prisma Migrate in your CI. For `db push`-based workflows, ensure schema is applied before first deploy.
+
+### 6. Deploy
+
+Push to `main` to trigger a deploy. Netlify uses the OpenNext adapter for Next.js automatically.
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── (auth)/           # Login, signup
+│   ├── (dashboard)/      # Dashboard, assessment, report
+│   ├── admin/            # Admin panel
+│   ├── api/              # API routes
+│   └── page.tsx          # Landing
+├── components/
+├── lib/
+│   ├── scoring/          # Risk scoring engine
+│   ├── assessment/       # Question definitions
+│   ├── db.ts
+│   └── auth.ts
+└── prisma/
+```
+
+## License
+
+MIT
