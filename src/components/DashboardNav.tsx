@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 
 export function DashboardNav() {
   return (
-    <nav className="flex items-center gap-4">
+    <nav className="flex items-center gap-3 sm:gap-4">
+      <Link
+        href="/"
+        className="text-sm font-medium text-gray-600 hover:text-gray-900"
+      >
+        Home
+      </Link>
       <Link
         href="/dashboard"
         className="text-sm font-medium text-gray-600 hover:text-gray-900"

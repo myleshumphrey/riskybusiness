@@ -7,7 +7,7 @@ export default function DemoAssessmentPage() {
     <div className="min-h-screen bg-[#f8fafc]">
       <header className="border-b border-slate-200/60 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/demo" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white text-sm font-semibold">
               R
             </div>
@@ -16,8 +16,8 @@ export default function DemoAssessmentPage() {
               Sample
             </span>
           </Link>
-          <Link href="/demo">
-            <Button variant="ghost" size="sm">Exit sample</Button>
+          <Link href="/">
+            <Button variant="ghost" size="sm">Home</Button>
           </Link>
         </div>
       </header>

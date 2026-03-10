@@ -19,8 +19,13 @@ export default async function DashboardLayout({
     <div className="min-h-screen bg-[#f8fafc]">
       <header className="border-b border-slate-200/80 bg-white shadow-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/dashboard" className="text-lg font-semibold text-gray-900">
-            Risk Profile
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-semibold text-white">
+              R
+            </div>
+            <span className="font-display text-lg font-semibold text-slate-900">
+              Risk Profile
+            </span>
           </Link>
           <DashboardNav />
         </div>

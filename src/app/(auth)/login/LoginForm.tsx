@@ -45,58 +45,73 @@ export function LoginForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f8fafc] px-4">
-      <Card className="w-full max-w-md border-slate-200/80 shadow-xl shadow-slate-200/30">
-        <CardHeader>
-          <CardTitle className="text-2xl">Log in</CardTitle>
-          <CardDescription>Enter your email and password to access your account.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                {error}
+    <div className="min-h-screen bg-[#f8fafc]">
+      <header className="border-b border-slate-200/70 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-semibold text-white">
+              R
+            </div>
+            <span className="font-display text-lg font-semibold text-slate-900">Risk Profile</span>
+          </Link>
+          <Link href="/" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+            Home
+          </Link>
+        </div>
+      </header>
+      <div className="flex items-center justify-center px-4 py-10 sm:py-16">
+        <Card className="w-full max-w-md border-slate-200/80 shadow-xl shadow-slate-200/30">
+          <CardHeader>
+            <CardTitle className="text-2xl">Log in</CardTitle>
+            <CardDescription>Enter your email and password to access your account.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                  {error}
+                </div>
+              )}
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="email"
+                  disabled={loading}
+                  className="h-11"
+                />
               </div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                autoComplete="email"
-                disabled={loading}
-                className="h-11"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                disabled={loading}
-                className="h-11"
-              />
-            </div>
-            <Button type="submit" className="w-full h-11" disabled={loading}>
-              {loading ? "Signing in..." : "Log in"}
-            </Button>
-          </form>
-          <p className="mt-4 text-center text-sm text-gray-600">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="font-medium text-primary hover:underline">
-              Sign up
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  disabled={loading}
+                  className="h-11"
+                />
+              </div>
+              <Button type="submit" className="w-full h-11" disabled={loading}>
+                {loading ? "Signing in..." : "Log in"}
+              </Button>
+            </form>
+            <p className="mt-4 text-center text-sm text-gray-600">
+              Don&apos;t have an account?{" "}
+              <Link href="/signup" className="font-medium text-primary hover:underline">
+                Sign up
+              </Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
